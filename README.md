@@ -1,3 +1,12 @@
+---
+title: Governance-First Audit Bot
+emoji: 🛡️
+colorFrom: indigo
+colorTo: blue
+sdk: streamlit
+app_file: app.py
+pinned: false
+---
 # The Audit Bot: Governance-First MLOps System
 
 This project is a multi-agent system designed with strict AI Governance and Guardrails. It acts as an automated B2B Invoice Approver & Fraud Risk Scorer.
@@ -13,22 +22,20 @@ This project is a multi-agent system designed with strict AI Governance and Guar
 1. **Install Dependencies**
    ```bash
    pip install -r requirements.txt
-   python -m spacy download en_core_web_lg
+   python -m spacy download en_core_web_sm
    ```
 
 2. **Configure API Keys**
-   - Copy `.env.example` to `.env`
-   - Fill in your `OPENAI_API_KEY`.
-   - Sign up at [Langfuse](https://cloud.langfuse.com), create a project, and fill in your `LANGFUSE_PUBLIC_KEY` and `LANGFUSE_SECRET_KEY`.
+   - Add your `GROQ_API_KEY`, `LANGFUSE_PUBLIC_KEY`, and `LANGFUSE_SECRET_KEY` in the Streamlit cloud settings.
 
-3. **Run the Bot**
+3. **Run the Bot Locally**
    ```bash
-   python main.py
+   streamlit run app.py
    ```
 
 ## Architecture
 1. **PII Scrubber Node**: Detects and anonymizes PII using Presidio.
-2. **Extraction Node**: Uses OpenAI to extract structured data from the clean text.
+2. **Extraction Node**: Uses Groq to extract structured data from the clean text.
 3. **Fraud Risk Node**: Analyzes the structured data against fraud rules.
 4. **Approval Node**: Makes the final decision based on company policy.
 5. **Judge Node**: Evaluates the agent's decision for safety and correctness.

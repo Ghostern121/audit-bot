@@ -24,9 +24,13 @@ if "motivate_clicked" not in st.session_state:
     st.session_state.motivate_clicked = False
 
 # --- Helper Functions ---
+def get_media_url(filename):
+    """Returns the raw GitHub LFS URL for a media file to bypass Streamlit Cloud static serving issues."""
+    return f"https://github.com/Ghostern121/audit-bot/blob/main/static/{filename}?raw=true"
+
 def set_bg_video(video_filename):
-    """Sets a fixed background video using static serving."""
-    video_url = f"/app/static/{video_filename}"
+    """Sets a fixed background video using GitHub LFS serving."""
+    video_url = get_media_url(video_filename)
     unique_id = video_filename.replace('.', '_')
     st.markdown(f"""
         <style>
@@ -140,7 +144,7 @@ elif st.session_state.stage == "main":
             st.session_state.motivate_clicked = not st.session_state.motivate_clicked
             
         if st.session_state.motivate_clicked:
-            st.video("static/Motivate.mp4", autoplay=True)
+            st.video(get_media_url("Motivate.mp4"), autoplay=True)
             
         st.divider()
         
@@ -158,14 +162,14 @@ elif st.session_state.stage == "main":
     
     if st.button("Process PDFs", type="primary") and uploaded_files:
         # Start "cash loop" audio in the background
-        audio_placeholder.markdown("""
-            <audio autoplay loop src="/app/static/cash_loop.mp3" style="display:none;"></audio>
+        audio_placeholder.markdown(f"""
+            <audio autoplay loop src="{get_media_url('cash_loop.mp3')}" style="display:none;"></audio>
         """, unsafe_allow_html=True)
         
         # Start "Motivate" video on mini screen (muted) using native st.video
         with mini_video_placeholder.container():
             st.markdown("<p><b>Processing Mode Active ⚙️</b></p>", unsafe_allow_html=True)
-            st.video("static/Motivate.mp4", autoplay=True, muted=True, loop=True)
+            st.video(get_media_url("Motivate.mp4"), autoplay=True, muted=True, loop=True)
         
         invoices_to_process = []
         
@@ -228,8 +232,8 @@ elif st.session_state.stage == "main":
             mini_video_placeholder.empty()
             
             # Play "cash rec" audio once
-            st.markdown("""
-                <audio autoplay src="/app/static/cash_rec.mp3" style="display:none;"></audio>
+            st.markdown(f"""
+                <audio autoplay src="{get_media_url('cash_rec.mp3')}" style="display:none;"></audio>
             """, unsafe_allow_html=True)
             
             # Display interactive dataframe

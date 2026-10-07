@@ -1,0 +1,14 @@
+langchain
+langchain-groq
+langgraph
+presidio-analyzer
+presidio-anonymizer
+spacy
+langfuse
+python-dotenv
+pydantic
+
+streamlit
+
+PyPDF2
+pandas

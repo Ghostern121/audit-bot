@@ -217,6 +217,7 @@ elif st.session_state.stage == "main":
                         "Amount ($)": amount,
                         "Fraud Risk": score,
                         "Status": status,
+                        "Decision Reasoning": res.get("decision_reasoning", ""),
                         "Judge Score": eval_score,
                         "Tracking ID": res['audit_tracking_id']
                     })

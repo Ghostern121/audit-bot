@@ -3,7 +3,6 @@ langchain-groq
 langgraph
 presidio-analyzer
 presidio-anonymizer
-spacy
 langfuse
 python-dotenv
 pydantic

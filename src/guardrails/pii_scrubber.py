@@ -3,13 +3,6 @@ from presidio_analyzer.nlp_engine import NlpEngineProvider
 from presidio_anonymizer import AnonymizerEngine
 import spacy
 
-# Ensure the lightweight Spacy model is available (prevent cloud crashes)
-try:
-    spacy.load("en_core_web_sm")
-except OSError:
-    from spacy.cli import download
-    download("en_core_web_sm")
-
 class PIIScrubber:
     def __init__(self):
         # Configure Presidio to use the lightweight en_core_web_sm model
